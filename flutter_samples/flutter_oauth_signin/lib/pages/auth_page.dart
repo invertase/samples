@@ -1,8 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, public_member_api_docs
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
@@ -133,55 +131,53 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Center(
-                child: SizedBox(
-                  width: 400,
-                  child: Form(
-                    key: formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedError(text: error, show: error.isNotEmpty),
-                        const SizedBox(height: 20),
-                        const SizedBox(height: 20),
-                        const SizedBox(height: 20),
-                        ...AppOAuthProvider.values.map((provider) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: SignInButton(
-                                provider.button,
-                                onPressed: () {
-                                  if (!isLoading) {
-                                    switch (provider) {
-                                      case AppOAuthProvider.google:
-                                        _googleSignIn();
-                                        break;
-                                      case AppOAuthProvider.facebook:
-                                        _facebookSignIn();
-                                        break;
-                                      case AppOAuthProvider.twitter:
-                                        _twitterSignIn();
-                                        break;
-                                      case AppOAuthProvider.github:
-                                        _githubSignIn();
-                                        break;
-                                    }
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: SizedBox(
+                width: 400,
+                child: Form(
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedError(text: error, show: error.isNotEmpty),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
+                      ...AppOAuthProvider.values.map((provider) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: SignInButton(
+                              provider.button,
+                              onPressed: () {
+                                if (!isLoading) {
+                                  switch (provider) {
+                                    case AppOAuthProvider.google:
+                                      _googleSignIn();
+                                      break;
+                                    case AppOAuthProvider.facebook:
+                                      _facebookSignIn();
+                                      break;
+                                    case AppOAuthProvider.twitter:
+                                      _twitterSignIn();
+                                      break;
+                                    case AppOAuthProvider.github:
+                                      _githubSignIn();
+                                      break;
                                   }
-                                },
-                              ),
+                                }
+                              },
                             ),
-                          );
-                        }).toList(),
-                        const SizedBox(height: 10),
-                      ],
-                    ),
+                          ),
+                        );
+                      }).toList(),
+                      const SizedBox(height: 10),
+                    ],
                   ),
                 ),
               ),

@@ -29,7 +29,9 @@ environment:
 dependencies:
   desktop_webview_auth: ^0.0.9
   firebase_auth: ^3.3.17
+  firebase_auth_desktop: ^1.0.0
   firebase_core: ^1.16.0
+  firebase_core_desktop: ^1.0.0
   flutter:
     sdk: flutter
   flutter_signin_button: ^2.0.0

@@ -7,16 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-const _redirectUri =
-    'https://react-native-firebase-testing.firebaseapp.com/__/auth/handler';
-const _googleClientId =
-    '448618578101-sg12d2qin42cpr00f8b0gehs5s7inm0v.apps.googleusercontent.com';
-const _twitterApiKey = 'YEXSiWv5UeCHyy0c61O2LBC3B';
-const _twitterApiSecretKey =
-    'DOd9dCCRFgtnqMDQT7A68YuGZtvcO4WP1mEFS4mEJAUooM4yaE';
-const _facebookClientId = '128693022464535';
-const _githubClientId = '582d07c80a9afae77406';
-const _githubClientSecret = '2d60f5e850bc178dfa6b7f6c6e37a65b175172d3';
+const _redirectUri = 'YOUR_PROJECT_REDIRECT_URI';
+const _googleClientId = 'PASTE_YOUR_CLIENT_ID';
+const _twitterApiKey = 'PASTE_YOUR_TWITTER_API_KEY';
+const _twitterApiSecretKey = 'PASTE_YOUR_TWITTER_API_KEY_SECRET';
+const _facebookClientId = 'PASTE_YOUR_CLIENT_ID';
+const _githubClientId = 'PASTE_YOUR_GITHUB_CLIENT_ID';
+const _githubClientSecret = 'PASTE_YOUR_GITHUB_CLIENT_SECRET';
 
 /// The different OAuth providers available in this app.
 enum AppOAuthProvider {

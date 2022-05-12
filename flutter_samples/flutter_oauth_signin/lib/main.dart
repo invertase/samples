@@ -1,20 +1,17 @@
-// ignore_for_file: depend_on_referenced_packages, public_member_api_docs
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_oauth_signin/firebase_options.dart';
 import 'package:flutter_oauth_signin/services/auth_service.dart';
 
 import 'pages/auth_page.dart';
 import 'pages/home_page.dart';
 
-// Requires that the Firebase Auth emulator is running locally
-// e.g via `melos run firebase:emulator`.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // TODO uncomment once you generate the options using the FlutterFir eCLI.
+  await Firebase.initializeApp(
+      options: /* DefaultFirebaseOptions.currentPlatform */ null);
 
   runApp(const AuthExampleApp());
 }
