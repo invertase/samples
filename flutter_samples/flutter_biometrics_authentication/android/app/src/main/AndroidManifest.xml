@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_biometrics_authentication">
+    package="sample.invertase.io.flutter_biometrics_authentication">
+   
+   <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
         android:label="flutter_biometrics_authentication"
         android:name="${applicationName}"
