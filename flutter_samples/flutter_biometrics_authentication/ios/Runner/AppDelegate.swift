@@ -2,9 +2,17 @@ import UIKit
 import Flutter
 import LocalAuthentication
 
+/**
+ * The entry point of the Flutter app delegate.
+ */
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    var biometricsChannel: FlutterMethodChannel?;
+    /**
+     * The channel name which communicates back and forth with Flutter.
+     * This name **MUST** match exactly the one on the Flutter side.
+     */
+    let channelName = "samples.invertase.io/biometrics"
+    var biometricsChannel: FlutterMethodChannel?
     
     override func application(
         _ application: UIApplication,
@@ -13,11 +21,11 @@ import LocalAuthentication
         // Get the root controller for the Flutter view.
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
         
-        // Setup a channel to recieve calls from Flutter.
-        biometricsChannel = FlutterMethodChannel(name: "samples.invertase.io/biometrics",
+        // Initialize the method channel once the Flutter engines is attached.s
+        biometricsChannel = FlutterMethodChannel(name: channelName,
                                                  binaryMessenger: controller.binaryMessenger)
         
-        // Set a method handler that is triggered by any call on `samples.invertase.io/biometrics` channel
+        // Set a method call handler, whener we invoke a method from Flutter on "samples.invertase.io/biometrics" channel, this handler will be triggered.
         biometricsChannel?.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             // This method is invoked on the UI thread.
@@ -28,14 +36,18 @@ import LocalAuthentication
                 return
             }
             
-            self.callLocalAuthentication(result: result)
+            self.authenticateWithBiometrics(result: result)
         })
         
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
-    private func callLocalAuthentication(result: @escaping FlutterResult) -> Void  {
+    /**
+     * Show a prompt that asks the user to sign in with biometrics (either Face or Fingerprint).
+     * If niether is cofigured by the user on their Android device, it will prompt for the passcode.
+     */
+    private func authenticateWithBiometrics(result: @escaping FlutterResult) -> Void  {
         let context = LAContext()
         
         if #available(iOS 10.0, *) {

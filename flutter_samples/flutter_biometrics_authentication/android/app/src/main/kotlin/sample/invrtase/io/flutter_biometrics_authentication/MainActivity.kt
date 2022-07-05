@@ -12,19 +12,31 @@ import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
-
+/**
+ * The entry point of the Flutter app activity. By default, this extends `FlutterActivity`.
+ * We will need to extend `FlutterFragmentActivity` instead,
+ * since `BiometricsPrompt` requires a `Fragment`, not an `Aactivity`.
+ */
 class MainActivity : FlutterFragmentActivity() {
-    private val CHANNEL = "samples.invertase.io/biometrics"
-    private lateinit var methodChannel: MethodChannel
+    /**
+     * The channel name which communicates back and forth with Flutter.
+     * This name MUST match exactly the one on the Flutter side.
+     */
+    private val channelName = "samples.invertase.io/biometrics"
+    private lateinit var biometricsChannel: MethodChannel
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        methodChannel = MethodChannel(
+
+        // Initialize the method channel once the Flutter engines is attached.s
+        biometricsChannel = MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
-            CHANNEL
+            channelName
         );
 
-        methodChannel.setMethodCallHandler { call, result ->
+        // Set a method call handler, whener we invoke a method from Flutter
+        // on "samples.invertase.io/biometrics" channel, this handler will be triggered.
+        biometricsChannel.setMethodCallHandler { call, result ->
             if (call.method == "authenticateWithBiometrics") {
                 authenticateWithBiometrics(result)
             } else {
@@ -33,8 +45,12 @@ class MainActivity : FlutterFragmentActivity() {
         }
     }
 
+    /**
+     * Show a prompt that asks the user to sign in with biometrics (either Face or Fingerprint).
+     * If niether is cofigured by the user on their Android device, it will prompt for the passcode.
+     */
     private fun authenticateWithBiometrics(@NonNull result: MethodChannel.Result) {
-        var resultSent: Boolean = false;
+        var resultSent = false;
         val executor = ContextCompat.getMainExecutor(this)
         val biometricPrompt = BiometricPrompt(
             this as FragmentActivity, executor,
@@ -58,7 +74,7 @@ class MainActivity : FlutterFragmentActivity() {
                         result.success(null)
                         resultSent = true;
                     }
-                    methodChannel.invokeMethod(
+                    biometricsChannel.invokeMethod(
                         "authenticationResult",
                         authResult.authenticationType != AUTHENTICATION_RESULT_TYPE_UNKNOWN
                     )
@@ -77,7 +93,7 @@ class MainActivity : FlutterFragmentActivity() {
             .setTitle("Biometric login")
             .setSubtitle("Log in using your biometric credential")
             .setConfirmationRequired(false)
-            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
             .build()
 
         biometricPrompt.authenticate(promptInfo)

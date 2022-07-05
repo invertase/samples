@@ -47,6 +47,9 @@ class AuthView extends StatefulWidget {
 }
 
 class _AuthViewState extends State<AuthView> {
+  /// The platform channel used to communicate with the native code.
+  /// The namee of the method channel MUST match the name of the channel
+  /// defined on the native side.
   final platform = const MethodChannel('samples.invertase.io/biometrics');
 
   /// The current authentication status.
@@ -57,10 +60,12 @@ class _AuthViewState extends State<AuthView> {
 
   Future<void> authenticateWithBiometrics() async {
     AuthStatus authStatus = AuthStatus.idle;
+    error = null;
 
     try {
       await platform.invokeMethod('authenticateWithBiometrics');
 
+      /// Handle the method calls coming from the native side.
       platform.setMethodCallHandler((call) async {
         if (call.method == 'authenticationResult') {
           if (call.arguments ?? false) {
@@ -75,6 +80,7 @@ class _AuthViewState extends State<AuthView> {
         }
       });
     } on PlatformException catch (e) {
+      // The type of error coming from native is always [PlatformException].
       setState(() {
         this.authStatus = AuthStatus.failed;
         error = e.message;
