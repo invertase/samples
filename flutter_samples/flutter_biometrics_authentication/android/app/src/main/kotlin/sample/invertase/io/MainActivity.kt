@@ -1,9 +1,8 @@
-package sample.invertase.io.flutter_biometrics_authentication
+package sample.invertase.io
 
 import androidx.annotation.NonNull
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.AUTHENTICATION_RESULT_TYPE_UNKNOWN
 import androidx.core.content.ContextCompat
