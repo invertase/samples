@@ -109,12 +109,14 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   TextFormField(
                     controller: oldPasswordController,
+                    obscureText: true,
                     decoration: const InputDecoration(
                       labelText: 'Current password',
                     ),
                   ),
                   TextFormField(
                     controller: newPasswordController,
+                    obscureText: true,
                     decoration: const InputDecoration(
                       labelText: 'New password',
                     ),
@@ -160,6 +162,13 @@ class _AuthPageState extends State<AuthPage> {
   final formKey = GlobalKey<FormState>();
 
   bool askForPhoneNumber = false;
+  bool _loading = false;
+
+  set loading(value) {
+    setState(() {
+      _loading = value;
+    });
+  }
 
   Future<void> signup() async {
     final form = formKey.currentState;
@@ -167,12 +176,15 @@ class _AuthPageState extends State<AuthPage> {
       final email = emailController.text;
       final password = passwordController.text;
       final phoneNumber = phoneNumberController.text;
+      loading = true;
       try {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user != null) {
           await savePhoneNumberToFirestore(phoneNumber, credential.user!.uid);
         }
+
+        loading = false;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           try {
@@ -180,6 +192,8 @@ class _AuthPageState extends State<AuthPage> {
               setState(() {
                 askForPhoneNumber = true;
               });
+
+              loading = false;
             } else {
               final credential = await FirebaseAuth.instance
                   .createUserWithEmailAndPassword(
@@ -194,9 +208,11 @@ class _AuthPageState extends State<AuthPage> {
             log('$e', name: 'Error', error: e);
           }
         } else {
+          loading = false;
           log('$e', name: 'Error', error: e);
         }
       } catch (e) {
+        loading = false;
         log('$e', name: 'Error', error: e);
       }
     }
@@ -230,7 +246,7 @@ class _AuthPageState extends State<AuthPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    'Sign up to Story',
+                    'Welcome!',
                     style: TextStyle(fontSize: 30, color: Colors.amber),
                   ),
                   const SizedBox(height: 20),
@@ -266,8 +282,8 @@ class _AuthPageState extends State<AuthPage> {
                     width: double.infinity,
                     height: 40,
                     child: ElevatedButton(
-                      onPressed: signup,
-                      child: const Text('Sign up'),
+                      onPressed: _loading ? null : signup,
+                      child: const Text('Let\'s go'),
                     ),
                   ),
                 ],
