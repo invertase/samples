@@ -65,8 +65,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-      await FirebaseAuth.instance.currentUser
-          ?.updatePassword(newPasswordController.text);
+      await user.updatePassword(newPasswordController.text);
 
       // This will trigger our backend function to send an SMS & WhatsApp message
       // to inform the user of the password change.
@@ -169,18 +168,18 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Future<void> signup() async {
+    loading = true;
+
     final form = formKey.currentState;
+    final auth = FirebaseAuth.instance;
+
     if (form?.validate() ?? false) {
       final email = emailController.text;
       final password = passwordController.text;
       final phoneNumber = phoneNumberController.text;
-      loading = true;
+
       try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-        if (credential.user != null) {
-          await savePhoneNumberToFirestore(phoneNumber, credential.user!.uid);
-        }
+        await auth.signInWithEmailAndPassword(email: email, password: password);
 
         loading = false;
       } on FirebaseAuthException catch (e) {
@@ -193,9 +192,8 @@ class _AuthPageState extends State<AuthPage> {
 
               loading = false;
             } else {
-              final credential = await FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: email, password: password);
+              final credential = await auth.createUserWithEmailAndPassword(
+                  email: email, password: password);
 
               if (credential.user != null) {
                 await savePhoneNumberToFirestore(
