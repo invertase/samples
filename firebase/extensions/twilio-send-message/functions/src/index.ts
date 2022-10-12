@@ -35,8 +35,22 @@ export const sendPasswordChangedAlert = functions.firestore
       body: body,
     };
 
-    const messagesCollection = admin.firestore().collection('messages');
+    if (user.phoneNumber) {
+      const messagesCollection = admin.firestore().collection('messages');
 
-    await messagesCollection.add(smsBody);
-    await messagesCollection.add(whatsappBody);
+      await messagesCollection.add(smsBody);
+      await messagesCollection.add(whatsappBody);
+    }
+
+    if (user.email) {
+      const mailCollection = admin.firestore().collection('mail');
+
+      await mailCollection.add({
+        to: [user.email],
+        message: {
+          subject: 'Yor password has been changed',
+          html: 'Your fancy HTML body goes here',
+        },
+      });
+    }
   });
