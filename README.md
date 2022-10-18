@@ -7,7 +7,7 @@ This repository contains a collection of Flutter & Firebase samples, each demons
 
 | Sample | Description | <img src="./zapp-logo.svg" width="15"/> Zapp Link |
 | --- | --- | --- |
-| [Notify users of password changes with Twilio](./firebase_twilio_send_message/) |  | [View live demo](https://zapp.run/edit/flutter-z9w06qzax06) |
+| [Notify users of password changes with Twilio](./firebase_twilio_send_message/) |  | [View live demo](https://zapp.run/edit/flutter-z1206bw1306?entry=lib/main.dart) |
 | [Native Biometric in Flutter for iOS & Android](./flutter_biometrics_authentication/) |  |  |
 | [Flutter OAuth Authentication on Desktop](./flutter_send_account_updates_with_twilio/) |  |  |
 ## <img src="./firebase-logo.png" width="15"/> Firebase Samples
