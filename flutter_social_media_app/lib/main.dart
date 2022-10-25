@@ -29,39 +29,29 @@ class MyApp extends StatelessWidget {
       title: 'Storyteller',
       theme: ThemeData(
         primaryColor: const Color(0xff1A73E9),
-        colorScheme: ColorScheme.fromSwatch(
-          primaryColorDark: const Color(0xff082a73),
-          primarySwatch: const MaterialColor(
-            0xff1A73E9,
-            {
-              50: Color(0xffe8f0fe),
-              100: Color(0xffc5d6fd),
-              200: Color(0xffa3bbfc),
-              300: Color(0xff81a0fb),
-              400: Color(0xff5f85fa),
-              500: Color(0xff3d6af9),
-              600: Color(0xff1a73e9),
-              700: Color(0xff145ac7),
-              800: Color(0xff0e4295),
-              900: Color(0xff082a73)
-            },
-          ),
-        ),
       ),
-      home: const ResizeImagesApp(),
+      home: const HomePage(),
     );
   }
 }
 
-class ResizeImagesApp extends ConsumerStatefulWidget {
-  const ResizeImagesApp({super.key});
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
 
   @override
-  ConsumerState<ResizeImagesApp> createState() => _ResizeImagesAppState();
+  ConsumerState<HomePage> createState() => _ResizeImagesAppState();
 }
 
-class _ResizeImagesAppState extends ConsumerState<ResizeImagesApp> {
+class _ResizeImagesAppState extends ConsumerState<HomePage> {
   final scrollController = ScrollController();
+
+  void _pushAddStory() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const AddStoryPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,51 +60,12 @@ class _ResizeImagesAppState extends ConsumerState<ResizeImagesApp> {
       child: Scaffold(
         body: Column(
           children: [
-            SafeArea(
-              bottom: false,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: AppPadding.large),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Storyteller',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.add_circle_outline_rounded,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const AddStoryPage(),
-                              ),
-                            );
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.account_circle_rounded,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+            StorytellerAppBar(onNewStoryPressed: _pushAddStory),
             Container(
               alignment: AlignmentDirectional.centerStart,
               padding: const EdgeInsets.symmetric(
                 horizontal: AppPadding.large,
-                vertical: AppPadding.medium,
+                vertical: AppPadding.small,
               ),
               child: const Text('Latest stories'),
             ),
@@ -125,6 +76,10 @@ class _ResizeImagesAppState extends ConsumerState<ResizeImagesApp> {
                             child: Text('No stories found'),
                           )
                         : GridView.builder(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.large,
+                              vertical: AppPadding.small,
+                            ),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -146,6 +101,52 @@ class _ResizeImagesAppState extends ConsumerState<ResizeImagesApp> {
                     error: (error, stack) => Text('Error: $error'),
                   ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class StorytellerAppBar extends StatelessWidget {
+  const StorytellerAppBar({
+    super.key,
+    required this.onNewStoryPressed,
+  });
+
+  final VoidCallback onNewStoryPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      bottom: false,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.large),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Storyteller',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.add_circle_outline_rounded,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: onNewStoryPressed,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.account_circle_rounded,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -195,7 +196,7 @@ class StoryBriefWidget extends StatelessWidget {
             ),
           Text(
             story.content,
-            maxLines: 3,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 10),
