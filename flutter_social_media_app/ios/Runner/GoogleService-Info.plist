@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>219368645393-faukn97t968mobgagfj7kbtmaskpsd8i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.219368645393-faukn97t968mobgagfj7kbtmaskpsd8i</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>219368645393-ph61d2t6kdv6pr0ubr0bppaeh5ngrf9o.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCSj2ehVlNDgZPteB17un6ykv4D_FVOeH8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>219368645393</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.resizingImages</string>
+	<key>PROJECT_ID</key>
+	<string>extensions-testing</string>
+	<key>STORAGE_BUCKET</key>
+	<string>extensions-testing.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:219368645393:ios:c32231689c2fd7ac6862b0</string>
+	<key>DATABASE_URL</key>
+	<string>https://extensions-testing.firebaseio.com</string>
+</dict>
+</plist>

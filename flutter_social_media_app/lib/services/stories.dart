@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:path/path.dart' as path;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
 
 import '../data/story.dart';
 
@@ -27,19 +27,16 @@ class StoryService {
 
       await FirebaseStorage.instance.ref(imagePath).putFile(image);
 
-      await docRef.update({'imageUrl': await _getImageUrl(imagePath)});
+      await docRef.update({'imagePath': imagePath});
     }
   }
 
-  Future<String?> _getImageUrl(String imagePath) async {
-    final ref = FirebaseStorage.instance.ref(imagePath);
+  Future<String> getThumbnailUrl(String imagePath) async {
+    final name = path.basenameWithoutExtension(imagePath);
+    final thumbnailPath = 'stories/stories_thumbnails/${name}_300x300.jpeg';
 
-    final listResult = await ref.getDownloadURL();
+    final ref = FirebaseStorage.instance.ref(thumbnailPath);
 
-    if (listResult.isEmpty) {
-      return null;
-    }
-
-    return listResult;
+    return ref.getDownloadURL();
   }
 }

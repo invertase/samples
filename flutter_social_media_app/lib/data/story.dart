@@ -8,7 +8,7 @@ class Story with _$Story {
   const factory Story({
     required String content,
     required String author,
-    String? imageUrl,
+    String? imagePath,
   }) = _Story;
 
   factory Story.fromJson(Map<String, Object?> json) => _$StoryFromJson(json);
