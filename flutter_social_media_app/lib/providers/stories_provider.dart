@@ -10,3 +10,9 @@ final stories = FutureProvider<List<Story>>((ref) async {
 
   return res.docs.map<Story>((e) => e.data()).toList();
 });
+
+final storyThumbnail = FutureProvider.autoDispose.family<String, String>((ref, path) async {
+  final res = await ref.watch(storyService).getThumbnailUrl(path);
+
+  return res;
+});

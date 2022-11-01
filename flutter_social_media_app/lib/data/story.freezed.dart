@@ -22,7 +22,7 @@ Story _$StoryFromJson(Map<String, dynamic> json) {
 mixin _$Story {
   String get content => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get imagePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $StoryCopyWith<$Res> {
   factory $StoryCopyWith(Story value, $Res Function(Story) then) =
       _$StoryCopyWithImpl<$Res, Story>;
   @useResult
-  $Res call({String content, String author, String? imageUrl});
+  $Res call({String content, String author, String? imagePath});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
   $Res call({
     Object? content = null,
     Object? author = null,
-    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
   }) {
     return _then(_value.copyWith(
       content: null == content
@@ -63,9 +63,9 @@ class _$StoryCopyWithImpl<$Res, $Val extends Story>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imagePath: freezed == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -77,7 +77,7 @@ abstract class _$$_StoryCopyWith<$Res> implements $StoryCopyWith<$Res> {
       __$$_StoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String content, String author, String? imageUrl});
+  $Res call({String content, String author, String? imagePath});
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class __$$_StoryCopyWithImpl<$Res> extends _$StoryCopyWithImpl<$Res, _$_Story>
   $Res call({
     Object? content = null,
     Object? author = null,
-    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
   }) {
     return _then(_$_Story(
       content: null == content
@@ -102,9 +102,9 @@ class __$$_StoryCopyWithImpl<$Res> extends _$StoryCopyWithImpl<$Res, _$_Story>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imagePath: freezed == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -113,7 +113,7 @@ class __$$_StoryCopyWithImpl<$Res> extends _$StoryCopyWithImpl<$Res, _$_Story>
 /// @nodoc
 @JsonSerializable()
 class _$_Story implements _Story {
-  const _$_Story({required this.content, required this.author, this.imageUrl});
+  const _$_Story({required this.content, required this.author, this.imagePath});
 
   factory _$_Story.fromJson(Map<String, dynamic> json) =>
       _$$_StoryFromJson(json);
@@ -123,11 +123,11 @@ class _$_Story implements _Story {
   @override
   final String author;
   @override
-  final String? imageUrl;
+  final String? imagePath;
 
   @override
   String toString() {
-    return 'Story(content: $content, author: $author, imageUrl: $imageUrl)';
+    return 'Story(content: $content, author: $author, imagePath: $imagePath)';
   }
 
   @override
@@ -137,13 +137,13 @@ class _$_Story implements _Story {
             other is _$_Story &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.author, author) || other.author == author) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, content, author, imageUrl);
+  int get hashCode => Object.hash(runtimeType, content, author, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -163,7 +163,7 @@ abstract class _Story implements Story {
   const factory _Story(
       {required final String content,
       required final String author,
-      final String? imageUrl}) = _$_Story;
+      final String? imagePath}) = _$_Story;
 
   factory _Story.fromJson(Map<String, dynamic> json) = _$_Story.fromJson;
 
@@ -172,7 +172,7 @@ abstract class _Story implements Story {
   @override
   String get author;
   @override
-  String? get imageUrl;
+  String? get imagePath;
   @override
   @JsonKey(ignore: true)
   _$$_StoryCopyWith<_$_Story> get copyWith =>
