@@ -1,0 +1,62 @@
+.app {
+  text-align: center;
+}
+
+.app-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.image {
+  width: 10em;
+  height: 100%;
+  display: flex;
+  transition: all 0.2s ease-in-out;
+}
+
+.image:hover {
+  border-radius: 20px;
+}
+
+.img-overlay {
+  position: relative;
+  width: 10em;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.img-overlay:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 10em;
+  height: 100%;
+  background: rgba(250, 140, 50, 0.6);
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.border-radius {
+  border-radius: 20px;
+}
+
+.margin {
+  margin: 20px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
