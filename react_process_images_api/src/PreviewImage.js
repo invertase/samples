@@ -4,7 +4,6 @@ import { builder } from '@invertase/image-processing-api';
 const API_URL = `https://${process.env.REACT_APP_LOCATION}-${process.env.REACT_APP_PORIJECT_ID}.cloudfunctions.net/ext-image-processing-api-handler/process?operations=`;
 
 export default function PreviewImage(props) {
-  console.log(props.url.length);
   if (props.url.length === 0) {
     return (
       <div className='image'>
@@ -18,41 +17,34 @@ export default function PreviewImage(props) {
   return <img src={API_URL + query} alt={props.alt} />;
 }
 
+/**
+ * Use the utility lib to build the query string.
+ *
+ * If you have an input from your storage bucket, you can use the following:
+ * `builder().input('gs://my-bucket/my-image.jpg')`
+ *
+ * @param {string} url The image URL to process.
+ * @returns {string} The query string.
+ *
+ * */
 function constructQuery(url) {
   var output;
   try {
-    // Use the utility to build the query string, if it fails we'll catch and encode manually
     output = builder()
       .input({
-        source: url,
+        url,
       })
       .resize({ width: 400, height: 250 })
       .grayscale()
       .blur({ sigma: 3 })
       .text({ value: 'Invertase', font: '48px sans-serif', textColor: 'darkorange' })
       .output({
-        format: 'webp',
+        webp: true,
       })
       .toEncodedString();
   } catch (error) {
-    output = encodeURIComponent(
-      JSON.stringify([
-        { operation: 'input', type: 'url', url: url },
-        { operation: 'resize', width: 400, height: 250 },
-        { operation: 'grayscale' },
-        { operation: 'blur', sigma: 3 },
-        {
-          operation: 'text',
-          value: 'Invertase',
-          font: '48px sans-serif',
-          textColor: 'darkorange',
-        },
-        { operation: 'output', format: 'webp' },
-      ])
-    );
+    console.error(error);
   }
-
-  console.log(output);
 
   return output;
 }
