@@ -11,13 +11,13 @@ const images = [
 ];
 
 function App() {
-  const [url, setUrl] = useState('null');
+  const [url, setUrl] = useState('');
 
   console.log(url);
 
   return (
-    <div className='app'>
-      <body className='app-header'>
+    <body className='app'>
+      <div className='app-body'>
         <div className='images'>
           <table>
             <tbody>
@@ -36,11 +36,11 @@ function App() {
             </tbody>
           </table>
         </div>
-        <div className='margin'>
+        <div className='margin h200'>
           <PreviewImage url={url} />
         </div>
-      </body>
-    </div>
+      </div>
+    </body>
   );
 }
 

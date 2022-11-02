@@ -4,8 +4,7 @@ import { builder } from '@invertase/image-processing-api';
 const API_URL = `https://${process.env.REACT_APP_LOCATION}-${process.env.REACT_APP_PORIJECT_ID}.cloudfunctions.net/ext-image-processing-api-handler/process?operations=`;
 
 export default function PreviewImage(props) {
-  const query = constructQuery(props.url);
-
+  console.log(props.url.length);
   if (props.url.length === 0) {
     return (
       <div className='image'>
@@ -13,6 +12,8 @@ export default function PreviewImage(props) {
       </div>
     );
   }
+
+  const query = constructQuery(props.url);
 
   return <img src={API_URL + query} alt={props.alt} />;
 }
