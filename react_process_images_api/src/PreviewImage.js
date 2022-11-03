@@ -28,12 +28,15 @@ export default function PreviewImage(props) {
  *
  * */
 function constructQuery(url) {
+  var input = builder().input({ url: url });
   var output;
+
+  if (url.startsWith('https://firebasestorage.googleapis.com/v0/b/')) {
+    input = gcsUrlInput(url);
+  }
+
   try {
-    output = builder()
-      .input({
-        url,
-      })
+    output = input
       .resize({ width: 400, height: 250 })
       .grayscale()
       .blur({ sigma: 3 })
@@ -47,4 +50,18 @@ function constructQuery(url) {
   }
 
   return output;
+}
+
+/**
+ * Use this function to parse a GCS URL into a builder input.
+ * @param {string} url The image GCS URL.
+ * @returns {import('@invertase/image-processing-api').InputOptions} A builder with input options.
+ */
+function gcsUrlInput(url) {
+  url = url.split('/o/')[1];
+  if (url.includes('?alt=media&token=')) {
+    url = url.split('?')[0];
+  }
+
+  return builder().input({ source: url });
 }
