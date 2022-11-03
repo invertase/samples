@@ -12,7 +12,7 @@ const images = [
   'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg',
 ];
 
-function App() {
+export default function App() {
   const [url, setUrl] = useState('');
 
   console.log(url);
@@ -26,12 +26,16 @@ function App() {
               {images.map((image) => (
                 <td>
                   <div
-                    className={`margin border-radius animate ${url === image && 'img-overlay'}`}
-                    onClick={() => {
-                      setUrl(image);
-                    }}
+                    className={`margin border-radius animate ${
+                      url === image && 'img-overlay'
+                    }`}
+                    onClick={() => setUrl(image)}
                   >
-                    <img className={`image ${url === image && 'border-radius'}`} src={image} alt='logo' />
+                    <img
+                      className={`image ${url === image && 'border-radius'}`}
+                      src={image}
+                      alt='logo'
+                    />
                   </div>
                 </td>
               ))}
@@ -45,5 +49,3 @@ function App() {
     </body>
   );
 }
-
-export default App;
