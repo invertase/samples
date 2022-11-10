@@ -7,8 +7,41 @@ For a full tutorial, visit our blog post [here]().
 
 1. [Add the Search with Algolia Extension](https://console.firebase.google.com/project/_/extensions/install?ref=algolia/firestore-algolia-search) to your Firebase project.
 2. Create a new Web App in the Firebase Console and copy the Firebase config [to this file](src/firebase/firebase_config.ts).
-3. FAdd the Algolia App & Search keys to [the `.env` file](./.env).
-4. Finally, run `npm run dev` to start the development server.
+3. Add the Algolia App & Search keys to [the `.env` file](./.env).
+4. Follow the [post-install instructions](https://github.com/algolia/firestore-algolia-search/blob/main/POSTINSTALL.md#run-the-script) to start importing data from Firestore to Algolia.
+5. Run `npm install` to install the dependencies.
+6. Finally, run `npm run dev` to start the development server.
+
+### Movies Database
+
+The data used in this sample is taken from [IMDB public data](https://www.imdb.com/interfaces/).
+To import the data into your Firestore database, write a script in any language of your choice and use the Firebase Admin SDK to import the data.
+
+The following is a sample script to import the data into Firestore using the Python Admin SDK:
+
+```python
+import json
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+  
+f = open('movies_data.json')
+movies_data = json.load(f)
+
+# Your project's service file
+cred = credentials.Certificate('path/to/serviceAccountKey.json')
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+
+# Reference to the movies collection
+col_ref = db.collection('movies')
+
+for movie in movies_data:
+    doc_ref = col_ref.add(movie)
+```
+
+You can find the data in the [`movies_data.json` file](./movies_data.json).
 
 ## Learn More
 
