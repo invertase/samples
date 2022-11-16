@@ -15,33 +15,35 @@ For a full tutorial, visit our blog post [here]().
 ### Movies Database
 
 The data used in this sample is taken from [IMDB public data](https://www.imdb.com/interfaces/).
-To import the data into your Firestore database, write a script in any language of your choice and use the Firebase Admin SDK to import the data.
+To import the data into your Firestore database, you have 2 options:
+1. Follow the [Firestore import guide in GCP](https://firebase.google.com/docs/firestore/manage-data/export-import#import_all_documents_from_an_export). Find the exported collection [here](./movies_firestore_export).
+2. Write a script in any language of your choice and use the Firebase Admin SDK to import the data.
 
-The following is a sample script to import the data into Firestore using the Python Admin SDK:
+    The following is a sample script to import the data into Firestore using the Python Admin SDK:
 
-```python
-import json
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-  
-f = open('movies_data.json')
-movies_data = json.load(f)
+    ```python
+    import json
+    import firebase_admin
+    from firebase_admin import credentials
+    from firebase_admin import firestore
 
-# Your project's service file
-cred = credentials.Certificate('path/to/serviceAccountKey.json')
-firebase_admin.initialize_app(cred)
+    f = open('movies_data.json')
+    movies_data = json.load(f)
 
-db = firestore.client()
+    # Your project's service file
+    cred = credentials.Certificate('path/to/serviceAccountKey.json')
+    firebase_admin.initialize_app(cred)
 
-# Reference to the movies collection
-col_ref = db.collection('movies')
+    db = firestore.client()
 
-for movie in movies_data:
-    doc_ref = col_ref.add(movie)
-```
+    # Reference to the movies collection
+    col_ref = db.collection('movies')
 
-You can find the data in the [`movies_data.json` file](./movies_data.json).
+    for movie in movies_data:
+        doc_ref = col_ref.add(movie)
+    ```
+
+    You can find the data in the [`movies_data.json` file](./movies_data.json).
 
 ## Learn More
 
