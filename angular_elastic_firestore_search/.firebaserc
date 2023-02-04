@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dev-extensions-testing": {
+      "hosting": {
+        "my-search-app": [
+          "dev-extensions-testing"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dev-extensions-testing"
+  }
+}
