@@ -17,6 +17,7 @@ This repository contains a collection of Flutter & Firebase samples, each demons
 | [Export Firestore Collections to BigQuery](./firebase_firestore_bigquery_export/) | Firebase Function |
 | [Send Messages with Twilio Extension Trigger](./firebase_twilio_send_message/)    | Firebase Function |
 | [Invertase Image Processing API](./firebase_extension_examples/resize_images/)    | Firebase Function |
+| [Angular Elastic Firestore Search](./angular_elastic_firestore_search/)           | Firebase Function |
 
 ---
 
